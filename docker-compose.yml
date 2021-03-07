@@ -8,7 +8,8 @@ services:
       context: .
       dockerfile: ./application/Dockerfile
     volumes:
-    - ./common:/code/common
+      - ./common:/code/common
+      - ./application:/code/application
     command: flask run -h0.0.0.0 -p8080
     environment:
       FLASK_APP: "application.app"
@@ -18,7 +19,8 @@ services:
       context: .
       dockerfile: ./worker/Dockerfile
     volumes:
-    - ./common:/code/common
+      - ./common:/code/common
+      - ./worker:/code/worker
     ports:
     - 8081:8081
     environment:
