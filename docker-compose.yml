@@ -1,0 +1,25 @@
+version: "3.2"
+
+services:
+  application:
+    ports:
+    - 8080:8080
+    build:
+      context: .
+      dockerfile: ./application/Dockerfile
+    volumes:
+    - ./common:/code/common
+    command: flask run -h0.0.0.0 -p8080
+    environment:
+      FLASK_APP: "application.app"
+  worker:
+    build:
+      context: .
+      dockerfile: ./worker/Dockerfile
+    volumes:
+    - ./common:/code/common
+    ports:
+    - 8081:8081
+    environment:
+      FLASK_APP: "worker.app"
+    command: flask run -h0.0.0.0 -p8081
